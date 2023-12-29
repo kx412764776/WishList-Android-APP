@@ -47,7 +47,7 @@ fun HomeView(
                 contentColor = AddIconColor,
                 containerColor = Color.Black,
                 onClick = {
-                    // TODO Add Navigation to add screen
+                    // Add Navigation to add screen
                     navController.navigate(Screen.AddScreen.route)
                 }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
