@@ -11,3 +11,4 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val AppBarColor = Color(0xFFDD115F)
+val AddIconColor = Color(0xFFDABEA7)
