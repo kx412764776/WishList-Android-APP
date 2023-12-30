@@ -19,11 +19,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.rememberDismissState
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.Card
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -31,7 +31,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -44,9 +43,7 @@ fun HomeView(
     navController: NavController,
     viewModel: WishViewModel
 ) {
-
-    val context = LocalContext.current
-
+    val scaffoldState = rememberScaffoldState()
     Scaffold(
         topBar = {
             AppBarView(title = "WishList")
@@ -55,14 +52,15 @@ fun HomeView(
             FloatingActionButton(
                 modifier = Modifier.padding(all = 20.dp),
                 contentColor = AddIconColor,
-                containerColor = Color.Black,
+                backgroundColor = Color.Black,
                 onClick = {
                     // Add Navigation to add screen
                     navController.navigate(Screen.AddScreen.route + "/0L")
                 }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
-        }
+        },
+        scaffoldState = scaffoldState
     ) {
         val wishlist = viewModel.getAllWishes.collectAsState(initial = listOf())
 
@@ -75,7 +73,7 @@ fun HomeView(
 
                 val dismissState = rememberDismissState(
                     confirmStateChange = {
-                        if (it == DismissValue.DismissedToEnd || it == DismissValue.DismissedToStart) {
+                        if (it == DismissValue.DismissedToStart) {
                             viewModel.deleteWish(wish)
                         }
                         true
@@ -130,8 +128,8 @@ fun WishItem(
             .clickable {
                 onClick()
             },
-        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        elevation = 10.dp,
+        backgroundColor = Color.White
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
