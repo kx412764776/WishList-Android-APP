@@ -9,7 +9,7 @@ class WishRepository(
         wishDao.addAWish(wish)
     }
 
-    fun getWish(): Flow<List<Wish>> = wishDao.getAllWishes()
+    fun getAllWishes(): Flow<List<Wish>> = wishDao.getAllWishes()
 
     fun getAWishById(id: Long): Flow<Wish> {
         return wishDao.getAWishById(id)
